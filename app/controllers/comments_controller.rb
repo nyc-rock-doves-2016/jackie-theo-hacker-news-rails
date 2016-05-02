@@ -5,13 +5,13 @@ class CommentsController < ApplicationController
   end
 
   def new
-    # binding.pry
+    @post = Post.find(params[:post_id])
     @comment = Comment.new
   end
 
   def create
-    @comment = Comment.new(comment_params)
-    #binding.pry
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.build(comment_params)
     if @comment.save
       redirect_to @comment.post
     else
